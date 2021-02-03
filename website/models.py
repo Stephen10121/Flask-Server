@@ -16,3 +16,8 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     notes = db.relationship('Note')
+
+class Admin(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    id2 = db.Column(db.String(150), unique=True)
+    password = db.Column(db.String(150))

@@ -59,3 +59,17 @@ def sign_up():
             return redirect(url_for('views.home'))
 
     return render_template("sign_up.html", user=current_user)
+
+@auth.route('/admin', methods=['GET', 'POST'])
+def admin():
+    if request.method == 'POST':
+        id = request.form.get('id')
+        password1 = request.form.get('password')
+
+        user = Admin.query.filter_by(id=id).first()
+        if user:
+            if check_password_hash(user.password, password):
+                new_user = Admin(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'))
+                return render_template("admin.html", user=current_user)
+
+    return render_template("admin.html", user=current_user)
